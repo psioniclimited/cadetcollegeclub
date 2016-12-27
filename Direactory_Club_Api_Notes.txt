@@ -1,0 +1,266 @@
+url: http://localhost:8888/api_getAllMembers
+type: GET
+input: no input
+description: Detail information of All Members.
+output : 
+{
+    "meta": [
+        {
+            "total": 18,
+            "per_page": 5,
+            "current_page": 1,
+            "last_page": 4,
+            "next_page_url": "http://localhost:8888/api_getAllMembers?page=2",
+            "prev_page_url": null,
+            "from": 1,
+            "to": 5
+        }
+    ],
+    "data": [
+        {
+            "user_id": 100,
+            "member_id": 59,
+            "name": "Barrett Mann",
+            "email": "gipytoqo@yahoo.com",
+            "mobile_number": "184",
+            "address": "Autem sint deserunt pariatur? Delectus, neque rerum rerum et commodi nemo nobis aliquip.",
+            "user_image": "http://localhost:8888/app/images/184_1478609296",
+            "Member_Type": "Alpha"
+        },
+        {
+            "user_id": 109,
+            "member_id": 68,
+            "name": "Raymond May",
+            "email": "vacevyfy@hotmail.com",
+            "mobile_number": "715",
+            "address": "Dolorem possimus, ut est fugit, mollit et maiores reiciendis commodi explicabo. Vero.",
+            "user_image": "http://localhost:8888/app/images/715_1479020017",
+            "Member_Type": "Alpha"
+        },
+        {
+            "user_id": 110,
+            "member_id": 69,
+            "name": "Sierra Benton",
+            "email": "lemepeq@hotmail.com",
+            "mobile_number": "617",
+            "address": "Earum omnis expedita eum molestiae totam in officiis quam aut voluptate doloremque.",
+            "user_image": "http://localhost:8888/app/images/617_1479020033",
+            "Member_Type": "Alpha"
+        },
+        {
+            "user_id": 111,
+            "member_id": 70,
+            "name": "Idola Lindsey",
+            "email": "rozo@hotmail.com",
+            "mobile_number": "855",
+            "address": "Quam enim molestias rem minim reprehenderit, accusamus consequatur? Voluptatem minim in et aliquam quos voluptatum earum.",
+            "user_image": "http://localhost:8888/app/images/855_1479020049",
+            "Member_Type": "Alpha"
+        },
+        {
+            "user_id": 112,
+            "member_id": 71,
+            "name": "Regina Graham",
+            "email": "jetol@yahoo.com",
+            "mobile_number": "220",
+            "address": "Non reiciendis consequatur? Deserunt consectetur qui quae officia animi, enim eiusmod unde sunt.",
+            "user_image": "http://localhost:8888/app/images/220_1479020302",
+            "Member_Type": "Alpha"
+        }
+    ]
+}
+
+
+http://localhost:8888/api_getMembers_of_a_type/{MemberTypeName}
+type: GET
+input: {MemberTypeName} = Alpha, Beta, Gama or any type. {MemberTypeName}  = Alpha in the Following output data.
+description: Detail information of a particular type of Members.
+output :
+{
+    "meta": [
+        {
+            "total": 6,
+            "per_page": 5,
+            "current_page": 1,
+            "last_page": 2,
+            "next_page_url": "http://localhost:8888/api_getMembers_of_a_type/Alpha?page=2",
+            "prev_page_url": null,
+            "from": 1,
+            "to": 5
+        }
+    ],
+    "data": [
+        {
+            "user_id": 100,
+            "member_id": 59,
+            "name": "Barrett Mann",
+            "email": "gipytoqo@yahoo.com",
+            "mobile_number": "184",
+            "address": "Autem sint deserunt pariatur? Delectus, neque rerum rerum et commodi nemo nobis aliquip.",
+            "user_image": "http://localhost:8888/app/images/184_1478609296",
+            "Member_Type": "Alpha"
+        },
+        {
+            "user_id": 109,
+            "member_id": 68,
+            "name": "Raymond May",
+            "email": "vacevyfy@hotmail.com",
+            "mobile_number": "715",
+            "address": "Dolorem possimus, ut est fugit, mollit et maiores reiciendis commodi explicabo. Vero.",
+            "user_image": "http://localhost:8888/app/images/715_1479020017",
+            "Member_Type": "Alpha"
+        },
+        {
+            "user_id": 110,
+            "member_id": 69,
+            "name": "Sierra Benton",
+            "email": "lemepeq@hotmail.com",
+            "mobile_number": "617",
+            "address": "Earum omnis expedita eum molestiae totam in officiis quam aut voluptate doloremque.",
+            "user_image": "http://localhost:8888/app/images/617_1479020033",
+            "Member_Type": "Alpha"
+        },
+        {
+            "user_id": 111,
+            "member_id": 70,
+            "name": "Idola Lindsey",
+            "email": "rozo@hotmail.com",
+            "mobile_number": "855",
+            "address": "Quam enim molestias rem minim reprehenderit, accusamus consequatur? Voluptatem minim in et aliquam quos voluptatum earum.",
+            "user_image": "http://localhost:8888/app/images/855_1479020049",
+            "Member_Type": "Alpha"
+        },
+        {
+            "user_id": 112,
+            "member_id": 71,
+            "name": "Regina Graham",
+            "email": "jetol@yahoo.com",
+            "mobile_number": "220",
+            "address": "Non reiciendis consequatur? Deserunt consectetur qui quae officia animi, enim eiusmod unde sunt.",
+            "user_image": "http://localhost:8888/app/images/220_1479020302",
+            "Member_Type": "Alpha"
+        }
+    ]
+}
+
+
+url: http://localhost:8888/api_get_birthDate
+type: GET
+input: no input
+description: Detail information of Members having the same birthday. At the backend, Carbon::now() has been used to fetch the current date. All the Members, whose birthday is on that current date, those results will be returned.
+output :
+{
+    "total": 3,
+    "per_page": 5,
+    "current_page": 1,
+    "last_page": 1,
+    "next_page_url": null,
+    "prev_page_url": null,
+    "from": 1,
+    "to": 3,
+    "data": [
+        {
+            "user_id": 93,
+            "member_id": 54,
+            "name": "Wilma Mann Mann Wilma Mann Mann",
+            "email": "javoc@yahoo.com",
+            "mobile_number": "392",
+            "address": "Aliqua. Consequuntur lorem rem non quisquam officiis labore vel anim inventore tempora dicta vitae.",
+            "dob": "22/12/2016",
+            "user_image": "http://localhost:8888/app/images/392_1478591209",
+            "Member_Type": "Meta"
+        },
+        {
+            "user_id": 94,
+            "member_id": 55,
+            "name": "Wing Moore",
+            "email": "babom@gmail.com",
+            "mobile_number": "272",
+            "address": "Sapiente enim natus est ut est dolor cupiditate dolorem aut elit, animi, hic nihil numquam magna error in.",
+            "dob": "22/12/2016",
+            "user_image": "http://localhost:8888/app/images/272_1478591226",
+            "Member_Type": "Peta"
+        },
+        {
+            "user_id": 98,
+            "member_id": 57,
+            "name": "Brenna Nielsen",
+            "email": "quwis@gmail.com",
+            "mobile_number": "75",
+            "address": "Obcaecati nihil et autem placeat, quos illo est assumenda rem molestiae illo sed ut aut eu ipsum.",
+            "dob": "22/12/2016",
+            "user_image": "http://localhost:8888/app/images/75_1478609271",
+            "Member_Type": "Peta"
+        }
+    ]
+}
+
+
+http://localhost:8888/search
+type: GET
+input: Search term of member's name. 
+parameter: "data": "here send the Search term"
+description: Search Member by name.
+
+output :
+{
+  "meta": [
+    {
+      "total": 2,
+      "per_page": 10,
+      "current_page": 1,
+      "last_page": 1,
+      "next_page_url": "&data=mo",
+      "prev_page_url": "&data=mo",
+      "from": 1,
+      "to": 2
+    }
+  ],
+  "data": [
+    {
+      "user_id": 94,
+      "member_id": 55,
+      "name": "Wing Moore",
+      "email": "babom@gmail.com",
+      "mobile_number": "272",
+      "address": "Sapiente enim natus est ut est dolor cupiditate dolorem aut elit, animi, hic nihil numquam magna error in.",
+      "user_image": "http://localhost:8888/app/images/272_1478591226",
+      "Member_Type": "Peta"
+    },
+    {
+      "user_id": 109,
+      "member_id": 68,
+      "name": "Raymond May",
+      "email": "vacevyfy@hotmail.com",
+      "mobile_number": "715",
+      "address": "Dolorem possimus, ut est fugit, mollit et maiores reiciendis commodi explicabo. Vero.",
+      "user_image": "http://localhost:8888/app/images/715_1479020017",
+      "Member_Type": "Alpha"
+    }
+  ]
+}
+
+
+Meta data information:
+
+"meta": [
+    {
+	    "total": 6,
+	    "per_page": 5,
+	    "current_page": 1,
+	    "last_page": 2,
+	    "next_page_url": "http://localhost:8888/api_getMembers_of_a_type/Alpha?page=2",
+	    "prev_page_url": null,
+	    "from": 1,
+	    "to": 5
+    }
+  ],
+
+"total" : total number of output data json object
+"per_page" : Number of output Json Output Object Per page.
+"current_page" : Pagination has been used. This is the number of current page of the pagination
+"last_page": 2,
+"next_page_url": Next page url for accessing next set of data exits in pagination,
+"prev_page_url": Previous page url for accessing next set of data exits in pagination,
+"from": Starting serial number of returning Json output data object,
+"to": Ending serial number of returning Json output data object,
