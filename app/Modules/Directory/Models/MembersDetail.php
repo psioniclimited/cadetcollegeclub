@@ -17,6 +17,8 @@ class MembersDetail extends Model {
     protected $fillable = [
         'user_image',
     ];
+
+    protected $appends = array('user_image_url');
 	
 	public function user()
     {
@@ -38,9 +40,14 @@ class MembersDetail extends Model {
         return \Carbon\Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }
 
-    public function getUserImageAttribute($value) 
+    // public function getUserImageAttribute($value) 
+    // {
+    //     return URL::to("/") . '/' . $value;
+    // }
+
+    public function getUserImageUrlAttribute() 
     {
-        return URL::to("/") . '/' . $value;
+        return URL::to("/") . '/' . $this->user_image;
     }
 }
 

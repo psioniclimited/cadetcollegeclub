@@ -107,10 +107,7 @@ class EventsWebController extends Controller {
     }
 
     public function eventUpdate(\App\Http\Requests\EventUpdateRequest $request, EventsDetail $EventsDetail) {
-    	// error_log($request->file('banner'));
-        // error_log($request->event_image[0]);
-        // return $request->all();
-        
+    	
         $file_count = count($request->event_image);
         if($file_count > 0) {
         $files = Input::file('event_image');
@@ -131,22 +128,6 @@ class EventsWebController extends Controller {
             }
         }
 
-        // for ($c=0; $c < count($request->event_image); $c++) { 
-        //     $event_img_file = $request->event_image[$c];
-        //     error_log($event_img_file);
-            
-        //     $filename = \Carbon\Carbon::now();
-        //     $filename = $filename->timestamp;
-        //     $filename = rand() . "_" . $filename;        
-        //     $request->event_image[$c]->move(storage_path('app/images/eventImages'), $filename);
-        //     $event_image_path = 'app/images/eventImages/' . $filename;
-        //     $EventImage = new EventImage();
-        //     $EventImage->events_id = $EventsDetail->id;
-        //     $EventImage->event_image = $event_image_path;
-        //     $EventImage->save();
-        // }
-        // return $request->all();
-        
         $EventsDetail->name = $request->name;
 		$EventsDetail->start_date = $request->start_date;
 		$EventsDetail->end_date = $request->end_date;
@@ -175,13 +156,26 @@ class EventsWebController extends Controller {
     /******************
     * Delete an Event *
     *******************/
-    public function deleteEvent(Request $request, EventsDetail $EventsDetail) {
+    public function deleteEvent($id) {
+        $EventsDetail = EventsDetail::find($id);
+        $all_Events = $EventsDetail->eventImage()->get();
+        foreach($all_Events as $event) {
+            $del_prev_file = storage_path($event->event_image);
+            if (File::exists($del_prev_file)) {
+                File::delete($del_prev_file);
+            }
+        }
+        $EventsDetail->eventImage()->delete();
         $EventsDetail->delete();
         return redirect('allEvents');
     }
 
     public function deleteEventImage(Request $request) {
         $deletedRow = EventImage::find($request->image_id);
+        $del_prev_file = storage_path($deletedRow->event_image);
+        if (File::exists($del_prev_file)) {
+            File::delete($del_prev_file);
+        }
         $deletedRow->delete();
     }
 

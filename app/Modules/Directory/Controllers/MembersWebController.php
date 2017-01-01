@@ -131,8 +131,9 @@ class MembersWebController extends Controller {
     	return view('Directory::edit_member_details',compact('getMemberDetail','current_memberType','memberType'));
 	}
 
-    public function memberUpdate(\App\Http\Requests\MemberUpdateRequest $request, MembersDetail $MembersDetail) {
-
+    public function memberUpdate(\App\Http\Requests\MemberUpdateRequest $request, $member_detail_id) {
+    	$MembersDetail = MembersDetail::find($member_detail_id);
+    	// return $MembersDetail;
     	$getUser = User::find($MembersDetail->user_id);
 		$getUser->name = $request->input('fullname');
 		$getUser->email = $request->input('email');
@@ -142,7 +143,8 @@ class MembersWebController extends Controller {
             $getUser->password = bcrypt($password);
         }
 
-		$getMemberDetail = MembersDetail::find($MembersDetail->id);
+		// $getMemberDetail = MembersDetail::find($MembersDetail->id);
+		$getMemberDetail = $MembersDetail;
 		$getMemberDetail->dob = $request->input('date_of_birth');
 		$getMemberDetail->mobile_number = $request->input('mob_num');
 		$getMemberDetail->office_number = $request->input('off_num');
@@ -152,7 +154,6 @@ class MembersWebController extends Controller {
 		if ($request->file("pic") !== null) {
 
 			$del_prev_file = storage_path($MembersDetail->user_image);
-			
 			if (File::exists($del_prev_file)) {
 				File::delete($del_prev_file);
 	        }
@@ -197,7 +198,12 @@ class MembersWebController extends Controller {
     *******************/
 
     public function deleteMember(Request $request, User $user) {
-		MembersDetail::where('user_id', $user->id)->delete();
+    	$members_details = MembersDetail::where('user_id', $user->id)->get();
+    	$del_prev_file = storage_path($members_details->user_image);
+        if (File::exists($del_prev_file)) {
+            File::delete($del_prev_file);
+        }
+		$members_details->delete();
 		$user->delete();
 		return redirect('allMembers');
 	}

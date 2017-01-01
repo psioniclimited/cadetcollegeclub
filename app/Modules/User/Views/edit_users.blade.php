@@ -109,7 +109,6 @@ $(document).ready(function () {
                     <label for="uroles" class="col-sm-4 control-label">Role*</label>
                     <div class="col-sm-8">
                         <select class="form-control" name="uroles" >
-                            <option value="">Select Role</option>
                             @foreach($getRoles as $grole)
                                 <option value="{{$grole->id}}" @if($grole->user_id == $eusr->id) selected @endif>{{$grole->display_name}}</option>
                             @endforeach

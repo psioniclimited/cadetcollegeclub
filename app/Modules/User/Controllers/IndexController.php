@@ -80,7 +80,8 @@ class IndexController extends Controller {
     }
 
     public function createUsers() {
-        $getRoles = Role::all();
+        $getRoles = Role::where('name','!=','member')->get();
+        // return $getRoles;
         return view('User::create_users')->with('getRoles', $getRoles);
     }
 
@@ -106,11 +107,13 @@ class IndexController extends Controller {
 
     public function editUsers($id) {
         $editUser = User::where('id', '=', $id)->get();
-        
+        // $userRole = Role
         $getRoles = Role::leftJoin('role_user', function($join) use ($id) {
-                    $join->on('role_user.role_id', '=', 'roles.id')->where('role_user.user_id', '=', $id);
-                })->get();
 
+                    $join->on('role_user.role_id', '=', 'roles.id')->where('role_user.user_id', '=', $id);
+
+                })->where('name','!=','member')->get();
+        // return $getRoles;
         return view('User::edit_users')->with('getRoles', $getRoles)->with('editUser', $editUser);
     }
 

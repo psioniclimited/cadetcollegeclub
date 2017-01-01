@@ -10,10 +10,10 @@
   |
  */
 Route::group(['middleware' => ['web']], function () {
-    
+
     //Route::get('/', 'App\Modules\User\Controllers\IndexController@index');
 
-    
+
     //Login Module
     Route::get('login', 'App\Modules\User\Controllers\IndexController@index');
     Route::post('user_login', 'App\Modules\User\Controllers\IndexController@loginUser');
@@ -44,7 +44,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('permission/{id}/edit', 'App\Modules\User\Controllers\UserSettingsController@editPermission')->middleware(['permission:permission.readAndcreate']);
     Route::post('permission_edit_process', 'App\Modules\User\Controllers\UserSettingsController@editPermissionProcess')->middleware(['permission:permission.readAndcreate']);
     
-   
     /****************
     * Delete a User *
     *****************/     

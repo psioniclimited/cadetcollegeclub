@@ -89,7 +89,7 @@ Route::group(['middleware' => ['web']], function () {
     /******************
     * Delete an Event *
     *******************/     
-    Route::post('event/{EventsDetail}/delete', 'App\Modules\Directory\Controllers\EventsWebController@deleteEvent')->middleware(['permission:event.edit']);
+    Route::post('event/{id}/delete', 'App\Modules\Directory\Controllers\EventsWebController@deleteEvent')->middleware(['permission:event.edit']);
 
     Route::post('event_image/delete', 'App\Modules\Directory\Controllers\EventsWebController@deleteEventImage')->middleware(['permission:event.edit']);
 
