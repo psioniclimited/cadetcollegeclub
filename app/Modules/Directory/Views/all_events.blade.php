@@ -38,7 +38,7 @@
         });
 
           // Delete Customer
-       $('#confirm_delete').on('show.bs.modal', function(e) {
+        $('#confirm_delete').on('show.bs.modal', function(e) {
            var $modal = $(this),
                event_id = e.relatedTarget.id;
                console.log(event_id);
@@ -58,7 +58,7 @@
                    }
                });
            });
-        })
+        });
 
     });
 </script>
@@ -123,7 +123,7 @@
     </div>
     <!-- /.row -->
 
-    <!-- Delete Customer Modal -->
+    <!-- Delete Event Modal -->
    <div class="modal fade" id="confirm_delete" role="dialog">
        <div class="modal-dialog">
            <!-- Modal content-->
@@ -143,7 +143,7 @@
            <!-- /. Modal content ends here -->
        </div>
    </div>
-   <!--  Delete Customer Modal ends here -->
+   <!--  Delete Event Modal ends here -->
 </section>
 <!-- /.content -->
 @endsection

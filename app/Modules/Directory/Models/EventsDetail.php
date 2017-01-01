@@ -19,7 +19,10 @@ class EventsDetail extends Model {
         'user_image',
     ];
 
-    
+    public function eventImage()
+    {
+        return $this->hasmany('App\Modules\Directory\Models\EventImage', 'events_id');
+    }
     public function setStartDateAttribute($value) {
         $this->attributes['start_date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $value)->toDateTimeString();
     }

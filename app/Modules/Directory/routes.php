@@ -91,7 +91,7 @@ Route::group(['middleware' => ['web']], function () {
     *******************/     
     Route::post('event/{EventsDetail}/delete', 'App\Modules\Directory\Controllers\EventsWebController@deleteEvent')->middleware(['permission:event.edit']);
 
-
+    Route::post('event_image/delete', 'App\Modules\Directory\Controllers\EventsWebController@deleteEventImage')->middleware(['permission:event.edit']);
 
 
     /*********************
@@ -130,6 +130,16 @@ Route::group(['middleware' => ['web']], function () {
     });
 
 
+    Route::get('app/images/eventImages/{imgname}', function($imgname){
+        $file_path = storage_path(). '/app/images/eventImages/' . $imgname;
+        $file = File::get($file_path);
+        $type = File::mimeType($file_path);
+        $response = response()->make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
+    });
+
+
 
     ###########
     # Extras  #
@@ -139,4 +149,5 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('authmob', 'App\Modules\Directory\Controllers\MemberLoginController@authenticate');
 
     // Route::get('map', 'App\Modules\Directory\Controllers\MembersWebController@mapTesting');
+    
 });

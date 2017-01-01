@@ -17,5 +17,6 @@ class VerifyCsrfToken extends BaseVerifier
         'users/*/delete',
         'member/*/delete',
         'event/*/delete',
+        'event_image/delete'
     ];
 }

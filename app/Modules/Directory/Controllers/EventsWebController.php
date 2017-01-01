@@ -4,9 +4,11 @@ namespace App\Modules\Directory\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Directory\Models\EventsDetail;
+use App\Modules\Directory\Models\EventImage;
 use App\Modules\Directory\Models\MembersDetail;
 use App\Modules\User\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Datatables;
 
 use LaravelFCM\Message\OptionsBuilder;
@@ -95,13 +97,57 @@ class EventsWebController extends Controller {
 
     /***************************
     * Edit and Update an Event *
-    ****************************/ 
-	public function editEvent(EventsDetail $EventsDetail) {
-    	return view('Directory::edit_events',compact('EventsDetail'));
+    ****************************/
+	public function editEvent($id) {
+        // return EventImage::with('eventsDetail')->get();
+        $EventsDetail = EventsDetail::with('eventImage')->find($id);
+        // return $EventsDetail;
+        $imageLength = 5 - count($EventsDetail->eventImage);
+        return view('Directory::edit_events',compact('EventsDetail','imageLength'));
     }
 
     public function eventUpdate(\App\Http\Requests\EventUpdateRequest $request, EventsDetail $EventsDetail) {
-    	$EventsDetail->name = $request->name;
+    	// error_log($request->file('banner'));
+        // error_log($request->event_image[0]);
+        // return $request->all();
+        
+        $file_count = count($request->event_image);
+        if($file_count > 0) {
+        $files = Input::file('event_image');
+        $file_count = count($files);
+            foreach($files as $file) {
+                if($file != null){
+                    $filename = \Carbon\Carbon::now();
+                    $filename = $filename->timestamp;
+                    $filename = rand() . "_" . $filename;        
+                    $file->move(storage_path('app/images/eventImages'), $filename);
+                    $event_image_path = 'app/images/eventImages/' . $filename;
+                    
+                    $EventImage = new EventImage();
+                    $EventImage->events_id = $EventsDetail->id;
+                    $EventImage->event_image = $event_image_path;
+                    $EventImage->save();
+                }
+            }
+        }
+
+        // for ($c=0; $c < count($request->event_image); $c++) { 
+        //     $event_img_file = $request->event_image[$c];
+        //     error_log($event_img_file);
+            
+        //     $filename = \Carbon\Carbon::now();
+        //     $filename = $filename->timestamp;
+        //     $filename = rand() . "_" . $filename;        
+        //     $request->event_image[$c]->move(storage_path('app/images/eventImages'), $filename);
+        //     $event_image_path = 'app/images/eventImages/' . $filename;
+        //     $EventImage = new EventImage();
+        //     $EventImage->events_id = $EventsDetail->id;
+        //     $EventImage->event_image = $event_image_path;
+        //     $EventImage->save();
+        // }
+        // return $request->all();
+        
+        $EventsDetail->name = $request->name;
 		$EventsDetail->start_date = $request->start_date;
 		$EventsDetail->end_date = $request->end_date;
 		$EventsDetail->time = $request->event_Time;
@@ -123,7 +169,7 @@ class EventsWebController extends Controller {
         
         $EventsDetail->save();
 
-		return redirect('allEvents');
+		return back();
     }
 
     /******************
@@ -132,6 +178,11 @@ class EventsWebController extends Controller {
     public function deleteEvent(Request $request, EventsDetail $EventsDetail) {
         $EventsDetail->delete();
         return redirect('allEvents');
+    }
+
+    public function deleteEventImage(Request $request) {
+        $deletedRow = EventImage::find($request->image_id);
+        $deletedRow->delete();
     }
 
 
